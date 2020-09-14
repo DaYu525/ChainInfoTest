@@ -1,7 +1,7 @@
 package com.chaindigg.testinfo.controller;
 
 
-import com.chaindigg.testinfo.dao.BlockheadDao;
+import com.chaindigg.testinfo.dao.BlockHeadDao;
 import com.chaindigg.testinfo.dao.TxDao;
 import com.chaindigg.testinfo.dao.TxninputDao;
 import com.chaindigg.testinfo.dao.TxnoutputDao;
@@ -10,8 +10,6 @@ import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @ResponseBody
@@ -20,7 +18,7 @@ import java.util.List;
 public class GetData {
 
     @Resource
-    private BlockheadDao blockheadDao;
+    private BlockHeadDao blockheadDao;
 
     @Resource
     private TxninputDao txninputDao;
@@ -40,7 +38,7 @@ public class GetData {
     @ApiOperation("查询区块信息")
     @ApiImplicitParams({@ApiImplicitParam(name = "id",value = "区块高度",dataType="Integer",defaultValue = "600000",
             required = true)})
-    public Blockhead get_block(@PathVariable("id") Integer id)  {
+    public BlockHead get_block(@PathVariable("id") Integer id)  {
         return blockheadDao.selectById(id);
     }
 

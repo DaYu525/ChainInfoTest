@@ -4,18 +4,18 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * txnInput
+ * txnOutput
  * @author 
  */
 @Data
-public class Txninput implements Serializable {
+public class TxnOutput implements Serializable {
 
 
     private String txnHash;
 
-    private String inputAddress;
+    private String outputAddress;
 
-    private String inputValue;
+    private String outputValue;
 
     private static final long serialVersionUID = 1L;
 }

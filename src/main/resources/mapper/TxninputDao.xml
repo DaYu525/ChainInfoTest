@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chaindigg.testinfo.dao.TxninputDao">
 
-  <resultMap id="BaseResultMap" type="com.chaindigg.testinfo.pojo.Txninput">
+  <resultMap id="BaseResultMap" type="com.chaindigg.testinfo.pojo.TxnInput">
     <result column="txnHash" jdbcType="VARCHAR" property="txnHash" />
     <result column="inputAddress" jdbcType="VARCHAR" property="inputAddress" />
     <result column="inputValue" jdbcType="VARCHAR" property="inputValue" />
@@ -14,7 +14,7 @@
   </select>
 
 
-  <insert id="insert" parameterType="com.chaindigg.testinfo.pojo.Txninput">
+  <insert id="insert" parameterType="com.chaindigg.testinfo.pojo.TxnInput">
     replace into txnInput (txnHash, inputAddress, inputValue
       )
     values (#{txnhash,jdbcType=VARCHAR}, #{inputaddress,jdbcType=VARCHAR}, #{inputvalue,jdbcType=VARCHAR}

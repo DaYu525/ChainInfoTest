@@ -10,7 +10,7 @@ import lombok.Data;
  * @author
  */
 @Data
-public class Blockhead implements Serializable {
+public class BlockHead implements Serializable {
     private Integer id;
 
     private String hash;

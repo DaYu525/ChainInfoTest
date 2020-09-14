@@ -29,9 +29,9 @@ public class Tx implements Serializable {
 
     private Integer size;
 
-    private List<Txninput> txnInput;
+    private List<TxnInput> txnInput;
 
-    private List<Txnoutput> txnOutput;
+    private List<TxnOutput> txnOutput;
 
     private static final long serialVersionUID = 1L;
 }

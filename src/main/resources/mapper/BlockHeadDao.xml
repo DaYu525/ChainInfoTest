@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.chaindigg.testinfo.dao.BlockheadDao">
+<mapper namespace="com.chaindigg.testinfo.dao.BlockHeadDao">
 
-  <resultMap id="BaseResultMap" type="com.chaindigg.testinfo.pojo.Blockhead">
+  <resultMap id="BaseResultMap" type="com.chaindigg.testinfo.pojo.BlockHead">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="hash" jdbcType="VARCHAR" property="hash" />
     <result column="confirms" jdbcType="INTEGER" property="confirms" />
     <result column="totalTxn" jdbcType="VARCHAR" property="totalTxn" />
     <result column="time" jdbcType="VARCHAR" property="time" />
-    <result column="outputTotal" jdbcType="VARCHAR" property="outpuTtotal" />
+    <result column="outputTotal" jdbcType="VARCHAR" property="outputTotal" />
     <result column="size" jdbcType="INTEGER" property="size" />
     <result column="reward" jdbcType="VARCHAR" property="reward" />
     <result column="fee" jdbcType="VARCHAR" property="fee" />
@@ -25,7 +25,7 @@
   </select>
 
 
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.chaindigg.testinfo.pojo.Blockhead" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.chaindigg.testinfo.pojo.BlockHead" useGeneratedKeys="true">
     REPLACE into blockhead (id,hash, confirms, totalTxn,
       `time`, outputTotal, `size`, 
       reward, fee, nonce, 

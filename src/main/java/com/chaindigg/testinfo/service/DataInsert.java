@@ -3,14 +3,14 @@ package com.chaindigg.testinfo.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.chaindigg.testinfo.dao.BlockheadDao;
+import com.chaindigg.testinfo.dao.BlockHeadDao;
 import com.chaindigg.testinfo.dao.TxDao;
-import com.chaindigg.testinfo.pojo.Blockhead;
+import com.chaindigg.testinfo.pojo.BlockHead;
 import com.chaindigg.testinfo.pojo.Tx;
-import com.chaindigg.testinfo.pojo.Txnoutput;
+import com.chaindigg.testinfo.pojo.TxnOutput;
 import com.chaindigg.testinfo.dao.TxninputDao;
 import com.chaindigg.testinfo.dao.TxnoutputDao;
-import com.chaindigg.testinfo.pojo.Txninput;
+import com.chaindigg.testinfo.pojo.TxnInput;
 import com.chaindigg.testinfo.utils.GetData;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
@@ -24,7 +24,7 @@ import java.util.List;
 public class DataInsert {
 
     @Resource
-    private BlockheadDao blockheadDao;
+    private BlockHeadDao blockheadDao;
 
     @Resource
     private TxninputDao txninputDao;
@@ -41,13 +41,13 @@ public class DataInsert {
      * @throws UnirestException
      */
     public void insert(List<Integer> id) throws UnirestException {
-        Txninput txninput = new Txninput();
-        Txnoutput txnoutput = new Txnoutput();
+        TxnInput txninput = new TxnInput();
+        TxnOutput txnoutput = new TxnOutput();
         GetData getData = new GetData();
         for (Integer height : id) {
             //插入BlockHead
             JSONObject data = getData.getBlockData(height);
-            Blockhead bh = JSON.parseObject(data.toString(),Blockhead.class);
+            BlockHead bh = JSON.parseObject(data.toString(), BlockHead.class);
             JSONObject pBlockVo = data.getJSONObject("pBlockVo");
             bh.setSize(pBlockVo.getInteger("size"));
             bh.setVersion(pBlockVo.getInteger("version"));

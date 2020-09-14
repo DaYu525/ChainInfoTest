@@ -1,12 +1,11 @@
 package com.chaindigg.testinfo.dao;
 
-import com.chaindigg.testinfo.pojo.Txninput;
-import com.chaindigg.testinfo.pojo.Txnoutput;
+import com.chaindigg.testinfo.pojo.TxnOutput;
 
 import java.util.List;
 
 public interface TxnoutputDao {
-    int insert(Txnoutput record);
+    int insert(TxnOutput record);
 
-    List<Txnoutput> selectByHash(String hash);
+    List<TxnOutput> selectByHash(String hash);
 }
