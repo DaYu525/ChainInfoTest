@@ -5,12 +5,12 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.chaindigg.testinfo.dao.BlockHeadDao;
 import com.chaindigg.testinfo.dao.TxDao;
-import com.chaindigg.testinfo.pojo.BlockHead;
-import com.chaindigg.testinfo.pojo.Tx;
-import com.chaindigg.testinfo.pojo.TxnOutput;
 import com.chaindigg.testinfo.dao.TxninputDao;
 import com.chaindigg.testinfo.dao.TxnoutputDao;
+import com.chaindigg.testinfo.pojo.BlockHead;
+import com.chaindigg.testinfo.pojo.Tx;
 import com.chaindigg.testinfo.pojo.TxnInput;
+import com.chaindigg.testinfo.pojo.TxnOutput;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -21,10 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class GetInfoData {
+public class BlockService {
 
     @Resource
     private BlockHeadDao blockheadDao;
+
 
     @Resource
     private TxninputDao txninputDao;
@@ -169,6 +170,10 @@ public class GetInfoData {
             }
         }
 
+    }
+
+    public BlockHead getBlokHead(Integer id){
+        return  blockheadDao.selectById(id);
     }
 
 }
