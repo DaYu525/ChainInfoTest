@@ -3,7 +3,6 @@ package com.chaindigg.testinfo.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.chaindigg.testinfo.controller.BlockController;
 import com.chaindigg.testinfo.dao.BlockHeadDao;
 import com.chaindigg.testinfo.dao.TxDao;
 import com.chaindigg.testinfo.pojo.BlockHead;
@@ -109,7 +108,6 @@ public class GetInfoData {
     public void insert(List<Integer> id) throws UnirestException {
         TxnInput txninput = new TxnInput();
         TxnOutput txnoutput = new TxnOutput();
-        BlockController blockController = new BlockController();
         for (Integer height : id) {
             //插入BlockHead
             JSONObject data = getBlockData(height);
