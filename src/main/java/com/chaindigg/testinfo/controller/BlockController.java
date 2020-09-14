@@ -32,6 +32,7 @@ public class BlockController {
     @Resource
     private GetInfoData getInfoData;
 
+
     /**
      * 插入区块数据
      * @param id
@@ -46,6 +47,7 @@ public class BlockController {
         getInfoData.insert(id);
         return "{\"message\":\"数据爬取成功\"}";
     }
+
 
     /***
      * 获取区块信息

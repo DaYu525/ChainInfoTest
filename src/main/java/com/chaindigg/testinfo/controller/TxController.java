@@ -18,9 +18,9 @@ import java.util.List;
 @Api
 public class TxController {
 
-
     @Resource
     private TxDao txDao;
+
 
 
     /***
@@ -30,10 +30,10 @@ public class TxController {
      */
     @GetMapping("/{txhash}")
     @ApiOperation("查询交易详情")
-    @ApiImplicitParam(name = "txhash", value = "交易哈希", dataType = "String", defaultValue =
+    @ApiImplicitParam(name = "txhash", value = "交易哈希",dataType = "String",defaultValue =
             "e97b737fc02583283d199dcad797c2a58f534571a4a6b19fbba93088ff596f2c",
             required = true)
-    public Tx get_txinfo(@PathVariable("txhash") String txhash) {
-        return txDao.selectByHash(txhash);
+    public Tx get_txinfo(@PathVariable("txhash")String txhash)  {
+        return  txDao.selectByHash(txhash);
     }
 }
