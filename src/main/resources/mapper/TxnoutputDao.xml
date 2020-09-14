@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaindigg.testinfo.dao.TxnoutputDao">
+
+  <resultMap id="BaseResultMap" type="com.chaindigg.testinfo.pojo.Txnoutput">
+    <result column="txnHash" jdbcType="VARCHAR" property="txnHash" />
+    <result column="outputAddress" jdbcType="VARCHAR" property="outputAddress" />
+    <result column="outputValue" jdbcType="VARCHAR" property="outputValue" />
+  </resultMap>
+
+
+  <select id="selectByHash" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from txnOutput where txnHash = #{hash,jdbcType=VARCHAR}
+  </select>
+
+
+  <insert id="insert" parameterType="com.chaindigg.testinfo.pojo.Txnoutput">
+    replace into txnOutput (txnHash, outputAddress, outputValue)
+    values (#{txnhash,jdbcType=VARCHAR}, #{outputaddress,jdbcType=VARCHAR}, #{outputvalue,jdbcType=VARCHAR})
+  </insert>
+</mapper>
