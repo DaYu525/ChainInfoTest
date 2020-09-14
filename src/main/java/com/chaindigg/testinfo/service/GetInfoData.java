@@ -3,6 +3,7 @@ package com.chaindigg.testinfo.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.chaindigg.testinfo.controller.BlockController;
 import com.chaindigg.testinfo.dao.BlockHeadDao;
 import com.chaindigg.testinfo.dao.TxDao;
 import com.chaindigg.testinfo.pojo.BlockHead;
@@ -11,17 +12,17 @@ import com.chaindigg.testinfo.pojo.TxnOutput;
 import com.chaindigg.testinfo.dao.TxninputDao;
 import com.chaindigg.testinfo.dao.TxnoutputDao;
 import com.chaindigg.testinfo.pojo.TxnInput;
-import com.chaindigg.testinfo.utils.GetData;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class DataInsert {
+public class GetInfoData {
 
     @Resource
     private BlockHeadDao blockheadDao;
@@ -36,6 +37,71 @@ public class DataInsert {
     private TxnoutputDao txnoutputDao;
 
     /**
+     * 获取info区块信息页面json数据对象
+     * @param id
+     * @return
+     * @throws UnirestException
+     */
+    public JSONObject getBlockData(Integer id) throws UnirestException {
+        HttpResponse response =
+                Unirest.get("https://info.chaindigg.com/api/block?coinType=btc&id=" + id + "&hash=&pageSize=" +
+                        "100&pageNumber=0&channelId=&normal=normal").asString();
+        JSONObject jso = JSON.parseObject(response.getBody().toString());
+        JSONObject data = jso.getJSONObject("data");
+        return data;
+    }
+
+    /**
+     * 获取显示交易的最大页码，每页显示100条交易
+     * @return
+     * @throws UnirestException
+     */
+    public int getLastPage(Integer id) throws UnirestException {
+        JSONObject data = getBlockData(id);
+        JSONObject page = data.getJSONObject("page");
+        JSONObject pageData = page.getJSONObject("pageData");
+        int lastPageNumber = pageData.getInteger("lastPageNumber");
+        return lastPageNumber;
+    }
+
+    /**
+     * 获取一个区块的所有交易hash
+     * @param id
+     * @return
+     * @throws UnirestException
+     */
+    public List<String> getTxHash(Integer id) throws UnirestException {
+        int lastPageNumber = getLastPage(id);
+        List<String> hash = new ArrayList<String>();
+        if (lastPageNumber == 0) {
+            HttpResponse response =
+                    Unirest.get("https://info.chaindigg.com/api/block?coinType=btc&id="+id+"&hash=&pageSize=" +
+                            "100&pageNumber=" + 0 + "&channelId=&normal=normal").asString();
+            JSONObject jso = JSON.parseObject(response.getBody().toString());
+            JSONObject data = jso.getJSONObject("data");
+            JSONArray txnInfoVoList = data.getJSONArray("txnInfoVoList");
+            for (int a = 0; a < txnInfoVoList.size(); a++) {
+                JSONObject index = txnInfoVoList.getJSONObject(a);
+                hash.add(index.get("hash").toString());
+            }
+        }else {
+            for (int i = 0; i <= lastPageNumber; i++) {
+                HttpResponse response =
+                        Unirest.get("https://info.chaindigg.com/api/block?coinType=btc&id="+id+"&hash=&pageSize=" +
+                                "100&pageNumber=" + i + "&channelId=&normal=normal").asString();
+                JSONObject jso = JSON.parseObject(response.getBody().toString());
+                JSONObject data = jso.getJSONObject("data");
+                JSONArray txnInfoVoList = data.getJSONArray("txnInfoVoList");
+                for (int a = 0; a < txnInfoVoList.size(); a++) {
+                    JSONObject index = txnInfoVoList.getJSONObject(a);
+                    hash.add(index.get("hash").toString());
+                }
+            }
+        }
+        return hash;
+    }
+
+    /**
      * 爬取及插入数据
      * @param id
      * @throws UnirestException
@@ -43,10 +109,10 @@ public class DataInsert {
     public void insert(List<Integer> id) throws UnirestException {
         TxnInput txninput = new TxnInput();
         TxnOutput txnoutput = new TxnOutput();
-        GetData getData = new GetData();
+        BlockController blockController = new BlockController();
         for (Integer height : id) {
             //插入BlockHead
-            JSONObject data = getData.getBlockData(height);
+            JSONObject data = getBlockData(height);
             BlockHead bh = JSON.parseObject(data.toString(), BlockHead.class);
             JSONObject pBlockVo = data.getJSONObject("pBlockVo");
             bh.setSize(pBlockVo.getInteger("size"));
@@ -57,7 +123,7 @@ public class DataInsert {
             bh.setConfirms(pBlockVo.getInteger("confirms"));
             blockheadDao.insert(bh);
             //插入Tx
-            List<String> hash = getData.getTxHash(height);
+            List<String> hash = getTxHash(height);
             for (int i = 0; i < hash.size(); i++) {
                 String hashCode = hash.get(i);
                 HttpResponse response =
