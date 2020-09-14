@@ -6,16 +6,19 @@ import com.chaindigg.testinfo.dao.TxDao;
 import com.chaindigg.testinfo.dao.TxninputDao;
 import com.chaindigg.testinfo.dao.TxnoutputDao;
 import com.chaindigg.testinfo.pojo.*;
+import com.chaindigg.testinfo.service.GetInfoData;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 @ResponseBody
-@RequestMapping("/get")
+@RequestMapping("/block")
 @Api
-public class GetData {
+public class BlockController {
 
     @Resource
     private BlockHeadDao blockheadDao;
@@ -27,14 +30,29 @@ public class GetData {
     private TxnoutputDao txnoutputDao;
 
     @Resource
-    private TxDao txDao;
+    private GetInfoData getInfoData;
+
+    /**
+     * 插入区块数据
+     * @param id
+     * @return
+     * @throws UnirestException
+     */
+    @PostMapping("/btc")
+    @ApiOperation("爬取数据")
+    @ApiImplicitParam(name = "id", value = "区块高度", defaultValue = "1",
+            required = true)
+    public String insert(@RequestParam(value = "id") List<Integer> id) throws UnirestException {
+        getInfoData.insert(id);
+        return "{\"message\":\"数据爬取成功\"}";
+    }
 
     /***
      * 获取区块信息
      * @param id
      * @return
      */
-    @GetMapping("/block/{id}")
+    @GetMapping("/{id}")
     @ApiOperation("查询区块信息")
     @ApiImplicitParams({@ApiImplicitParam(name = "id",value = "区块高度",dataType="Integer",defaultValue = "600000",
             required = true)})
@@ -43,17 +61,5 @@ public class GetData {
     }
 
 
-    /***
-     * 获取交易信息
-     * @param txhash
-     * @return
-     */
-    @GetMapping("/txinfo/{txhash}")
-    @ApiOperation("查询交易详情")
-    @ApiImplicitParam(name = "txhash", value = "交易哈希",dataType = "String",defaultValue =
-            "e97b737fc02583283d199dcad797c2a58f534571a4a6b19fbba93088ff596f2c",
-            required = true)
-    public Tx get_txinfo(@PathVariable("txhash")String txhash)  {
-        return  txDao.selectByHash(txhash);
-    }
+
 }
