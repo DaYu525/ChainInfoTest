@@ -17,7 +17,7 @@
   <insert id="insert" parameterType="com.chaindigg.testinfo.pojo.TxnInput">
     replace into txnInput (txnHash, inputAddress, inputValue
       )
-    values (#{txnhash,jdbcType=VARCHAR}, #{inputaddress,jdbcType=VARCHAR}, #{inputvalue,jdbcType=VARCHAR}
+    values (#{txnHash,jdbcType=VARCHAR}, #{inputAddress,jdbcType=VARCHAR}, #{inputValue,jdbcType=VARCHAR}
       )
   </insert>
 </mapper>

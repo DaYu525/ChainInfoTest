@@ -32,8 +32,8 @@
     replace into tx (hash, confirms, blockHeight,
       `time`, fee, inputTotal, 
       outputTotal, `size`)
-    values (#{hash,jdbcType=VARCHAR}, #{confirms,jdbcType=INTEGER}, #{blockheight,jdbcType=INTEGER}, 
-      #{time,jdbcType=VARCHAR}, #{fee,jdbcType=VARCHAR}, #{inputtotal,jdbcType=VARCHAR}, 
-      #{outputtotal,jdbcType=VARCHAR}, #{size,jdbcType=INTEGER})
+    values (#{hash,jdbcType=VARCHAR}, #{confirms,jdbcType=INTEGER}, #{blockHeight,jdbcType=INTEGER},
+      #{time,jdbcType=VARCHAR}, #{fee,jdbcType=VARCHAR}, #{inputTotal,jdbcType=VARCHAR},
+      #{outputTotal,jdbcType=VARCHAR}, #{size,jdbcType=INTEGER})
   </insert>
 </mapper>

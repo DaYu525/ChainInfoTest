@@ -16,6 +16,6 @@
 
   <insert id="insert" parameterType="com.chaindigg.testinfo.pojo.TxnOutput">
     replace into txnOutput (txnHash, outputAddress, outputValue)
-    values (#{txnhash,jdbcType=VARCHAR}, #{outputaddress,jdbcType=VARCHAR}, #{outputvalue,jdbcType=VARCHAR})
+    values (#{txnHash,jdbcType=VARCHAR}, #{outputAddress,jdbcType=VARCHAR}, #{outputValue,jdbcType=VARCHAR})
   </insert>
 </mapper>

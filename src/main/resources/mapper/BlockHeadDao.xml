@@ -31,9 +31,9 @@
       reward, fee, nonce, 
       version, merkleRoot)
     values (#{id,jdbcType=INTEGER},#{hash,jdbcType=VARCHAR}, #{confirms,jdbcType=INTEGER},
-            #{totaltxn,jdbcType=VARCHAR},
-      #{time,jdbcType=VARCHAR}, #{outputtotal,jdbcType=VARCHAR}, #{size,jdbcType=INTEGER}, 
+            #{totalTxn,jdbcType=VARCHAR},
+      #{time,jdbcType=VARCHAR}, #{outputTotal,jdbcType=VARCHAR}, #{size,jdbcType=INTEGER},
       #{reward,jdbcType=INTEGER}, #{fee,jdbcType=VARCHAR}, #{nonce,jdbcType=VARCHAR}, 
-      #{version,jdbcType=INTEGER}, #{merkleroot,jdbcType=VARCHAR})
+      #{version,jdbcType=INTEGER}, #{merkleRoot,jdbcType=VARCHAR})
   </insert>
 </mapper>
