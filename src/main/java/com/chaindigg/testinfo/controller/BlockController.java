@@ -23,7 +23,6 @@ public class BlockController {
     @Resource
     private BlockService blockService;
 
-
     /**
      * 插入区块数据
      * @param id
